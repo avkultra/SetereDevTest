@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowTitle("Scanner Selector");
+    setWindowTitle(tr("Scanner Selector"));
 
     setupSquareToolButtons();
 
@@ -65,22 +65,22 @@ void MainWindow::onOpenScanner()
     m_pScannerDialog->raise();
     m_pScannerDialog->activateWindow();
 
-    statusBar()->showMessage("Scanner dialog opened", 2000);
+    statusBar()->showMessage(tr("Scanner dialog opened"), 2000);
 }
 
 void MainWindow::onSettings()
 {
-    statusBar()->showMessage("Settings dialog", 2000);
-    QMessageBox::information(this, "Settings", "Settings dialog will be implemented here");
+    statusBar()->showMessage(tr("Settings dialog"), 2000);
+    QMessageBox::information(this, tr("Settings"), tr("Settings dialog will be implemented here"));
 }
 
 void MainWindow::onAbout()
 {
-    QMessageBox::about(this, "About Scanner Selector",
-                       "<h2>Scanner Selector</h2>"
+    QMessageBox::about(this, tr("About Scanner Selector"),
+                       tr("<h2>Scanner Selector</h2>"
                        "<p>Version 1.0</p>"
                        "<p>Setere test application</p>"
-                       "<p>© 2026 Setetre </p>");
+                       "<p>© 2026 Setetre </p>"));
 }
 
 void MainWindow::onExit()

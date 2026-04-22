@@ -177,8 +177,8 @@ private:
     QSettings m_settings;
 
     // Модели данных
-    QStandardItemModel *m_pAvailableModel;
-    QStandardItemModel *m_pPriorityModel;
+    QStandardItemModel* m_pAvailableModel;
+    QStandardItemModel* m_pPriorityModel;
     // Комментарии
     QMap<QString, QString> m_availableScannerComments;
 };

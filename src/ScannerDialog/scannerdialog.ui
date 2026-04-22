@@ -17,10 +17,7 @@
    <item>
     <widget class="QFrame" name="frame_2">
      <property name="frameShape">
-      <enum>QFrame::Shape::NoFrame</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Shadow::Raised</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <property name="leftMargin">
@@ -60,7 +57,8 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset theme="QIcon::ThemeIcon::ViewRestore"/>
+         <iconset>
+          <normaloff>../../res/ico/setup_icon.png</normaloff>../../res/ico/setup_icon.png</iconset>
         </property>
         <property name="flat">
          <bool>false</bool>
@@ -80,10 +78,7 @@
    <item>
     <widget class="QFrame" name="frame_3">
      <property name="frameShape">
-      <enum>QFrame::Shape::NoFrame</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Shadow::Raised</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <property name="leftMargin">
@@ -122,10 +117,7 @@
    <item>
     <widget class="QFrame" name="frame">
      <property name="frameShape">
-      <enum>QFrame::Shape::NoFrame</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Shadow::Raised</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="leftMargin">

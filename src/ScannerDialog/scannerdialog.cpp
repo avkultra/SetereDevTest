@@ -12,138 +12,86 @@
 #include <QStyledItemDelegate>
 #include <QDebug>
 #include "../CommentDlg/commentdlg.h"
+#include "icontextdelegate.h"
+#include "priorityitemdelegate.h"
 
-// Делегат для списка с иконкой
-class CIconTextDelegate : public QStyledItemDelegate
-{
-public:
-    using QStyledItemDelegate::QStyledItemDelegate;
+//// Делегат для списка с радибуттон
+//class CPriorityItemDelegate : public QStyledItemDelegate
+//{
+//public:
+//    using QStyledItemDelegate::QStyledItemDelegate;
 
-    void paint(QPainter *painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
-    {
-        painter->save();
+//    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
+//    {
+//        painter->save();
 
-        QStyleOptionViewItem opt = option;
-        initStyleOption(&opt, index);
+//        QStyleOptionViewItem opt = option;
+//        initStyleOption(&opt, index);
 
-        QStyle* style = QApplication::style();
-        style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter);
+//        opt.state &= ~QStyle::State_Selected;
 
-        // Получаем данные
-        QIcon icon = index.data(Qt::DecorationRole).value<QIcon>();
-        QString text = index.data(Qt::DisplayRole).toString();
+//        QStyle* style = QApplication::style();
+//        style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter);
 
-        if (!icon.isNull())
-        {
-            QRect iconRect = option.rect;
-            iconRect.setLeft(option.rect.left() + 8);
-            iconRect.setWidth(16);
-            iconRect.setHeight(16);
-            iconRect.moveTop(option.rect.top() + (option.rect.height() - 16) / 2);
+//        bool isActive = index.data(Qt::UserRole + 1).toBool();
+//        bool isSelected = (option.state & QStyle::State_Selected) != 0;
+//        QString text = index.data(Qt::DisplayRole).toString();
 
-            icon.paint(painter, iconRect, Qt::AlignCenter,
-                       index.data(Qt::UserRole + 1).toBool() ? QIcon::Selected : QIcon::Normal);
-        }
+//        QStyleOptionButton radioStyle;
+//        radioStyle.state = isActive ? QStyle::State_On : QStyle::State_Off;
+//        radioStyle.state |= QStyle::State_Enabled;
+//        radioStyle.rect = QRect(option.rect.left() + 8,
+//                                option.rect.top() + (option.rect.height() - 14) / 2,
+//                                14, 14);
 
-        QRect textRect = option.rect;
-        textRect.setLeft(option.rect.left() + 32);
-        textRect.setRight(option.rect.right() - 10);
+//        style->drawPrimitive(QStyle::PE_IndicatorRadioButton, &radioStyle, painter);
 
-        QFont font = painter->font();
-        if (index.data(Qt::FontRole).value<QFont>() != font)
-        {
-            font = index.data(Qt::FontRole).value<QFont>();
-        }
-        painter->setFont(font);
+//        QRect textRect = option.rect;
+//        textRect.setLeft(option.rect.left() + 28);
+//        textRect.setRight(option.rect.right() - 10);
 
-        painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, text);
+//        painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, text);
 
-        painter->restore();
-    }
+//        if (isSelected)
+//        {
+//            QPen pen;
+//            pen.setColor(QColor(52, 152, 219));
+//            pen.setWidth(1);
+//            painter->setPen(pen);
 
-    QSize sizeHint(const QStyleOptionViewItem& /*option*/, const QModelIndex& /*index*/) const override
-    {
-        return QSize(200, 32);
-    }
-};
+//            // Рисуем полосу внизу ячейки
+//            int y = option.rect.bottom() - 1;
+//            painter->drawLine(option.rect.left(), y, option.rect.right(), y);
+//        }
 
-// Делегат для списка с радибуттон
-class CPriorityItemDelegate : public QStyledItemDelegate
-{
-public:
-    using QStyledItemDelegate::QStyledItemDelegate;
+//        painter->restore();
+//    }
 
-    void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override
-    {
-        painter->save();
+//    QSize sizeHint(const QStyleOptionViewItem& /*option*/, const QModelIndex& /*index*/) const override
+//    {
+//        return QSize(200, 30);
+//    }
 
-        QStyleOptionViewItem opt = option;
-        initStyleOption(&opt, index);
+//    bool editorEvent(QEvent* event, QAbstractItemModel* model,
+//                     const QStyleOptionViewItem& option, const QModelIndex& index) override
+//    {
+//        if (event->type() == QEvent::MouseButtonRelease)
+//        {
+//            QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
 
-        opt.state &= ~QStyle::State_Selected;
+//            QRect radioRect(option.rect.left() + 8,
+//                            option.rect.top() + (option.rect.height() - 14) / 2,
+//                            14, 14);
 
-        QStyle* style = QApplication::style();
-        style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter);
-
-        bool isActive = index.data(Qt::UserRole + 1).toBool();
-        bool isSelected = (option.state & QStyle::State_Selected) != 0;
-        QString text = index.data(Qt::DisplayRole).toString();
-
-        QStyleOptionButton radioStyle;
-        radioStyle.state = isActive ? QStyle::State_On : QStyle::State_Off;
-        radioStyle.state |= QStyle::State_Enabled;
-        radioStyle.rect = QRect(option.rect.left() + 8,
-                                option.rect.top() + (option.rect.height() - 14) / 2,
-                                14, 14);
-
-        style->drawPrimitive(QStyle::PE_IndicatorRadioButton, &radioStyle, painter);
-
-        QRect textRect = option.rect;
-        textRect.setLeft(option.rect.left() + 28);
-        textRect.setRight(option.rect.right() - 10);
-
-        painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, text);
-
-        if (isSelected)
-        {
-            QPen pen;
-            pen.setColor(QColor(52, 152, 219));
-            pen.setWidth(1);
-            painter->setPen(pen);
-
-            // Рисуем полосу внизу ячейки
-            int y = option.rect.bottom() - 1;
-            painter->drawLine(option.rect.left(), y, option.rect.right(), y);
-        }
-
-        painter->restore();
-    }
-
-    QSize sizeHint(const QStyleOptionViewItem& /*option*/, const QModelIndex& /*index*/) const override
-    {
-        return QSize(200, 30);
-    }
-
-    bool editorEvent(QEvent* event, QAbstractItemModel* model,
-                     const QStyleOptionViewItem& option, const QModelIndex& index) override
-    {
-        if (event->type() == QEvent::MouseButtonRelease)
-        {
-            QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
-
-            QRect radioRect(option.rect.left() + 8,
-                            option.rect.top() + (option.rect.height() - 14) / 2,
-                            14, 14);
-
-            if (radioRect.contains(mouseEvent->pos()) || option.rect.contains(mouseEvent->pos()))
-            {
-                model->setData(index, true, Qt::UserRole + 1);
-                return true;
-            }
-        }
-        return QStyledItemDelegate::editorEvent(event, model, option, index);
-    }
-};
+//            if (radioRect.contains(mouseEvent->pos()) || option.rect.contains(mouseEvent->pos()))
+//            {
+//                model->setData(index, true, Qt::UserRole + 1);
+//                return true;
+//            }
+//        }
+//        return QStyledItemDelegate::editorEvent(event, model, option, index);
+//    }
+//};
 
 // Конструктор
 CScannerDialog::CScannerDialog(QWidget* parent) :

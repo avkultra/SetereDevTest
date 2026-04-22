@@ -9,12 +9,16 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/ScannerDialog/priorityitemdelegate.cpp \
+    src/ScannerDialog/icontextdelegate.cpp \
     src\CommentDlg\commentdlg.cpp \
     src\ScannerDialog\scannerdialog.cpp \
     src\main.cpp \
     src\mainwindow.cpp
 
 HEADERS += \
+    src/ScannerDialog/priorityitemdelegate.h \
+     src/ScannerDialog/icontextdelegate.h \
     src\CommentDlg\commentdlg.h \
     src\ScannerDialog\scannerdialog.h \
     src\mainwindow.h
@@ -25,7 +29,8 @@ FORMS += \
     src\mainwindow.ui
 
 TRANSLATIONS += \
-    src\SetereDevTest_ru_RU.ts
+    src\SetereDevTest_ru_RU.ts \
+    src\SetereDevTest_en_US.ts
 CONFIG += lrelease
 CONFIG += embed_translations
 
