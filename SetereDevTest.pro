@@ -11,26 +11,26 @@ CONFIG += c++17
 SOURCES += \
     src/ScannerDialog/priorityitemdelegate.cpp \
     src/ScannerDialog/icontextdelegate.cpp \
-    src\CommentDlg\commentdlg.cpp \
-    src\ScannerDialog\scannerdialog.cpp \
-    src\main.cpp \
-    src\mainwindow.cpp
+    src/CommentDlg/commentdlg.cpp \
+    src/ScannerDialog/scannerdialog.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp
 
 HEADERS += \
     src/ScannerDialog/priorityitemdelegate.h \
-     src/ScannerDialog/icontextdelegate.h \
-    src\CommentDlg\commentdlg.h \
-    src\ScannerDialog\scannerdialog.h \
-    src\mainwindow.h
+    src/ScannerDialog/icontextdelegate.h \
+    src/CommentDlg/commentdlg.h \
+    src/ScannerDialog/scannerdialog.h \
+    src/mainwindow.h
 
 FORMS += \
-    src\CommentDlg\commentdlg.ui \
-    src\ScannerDialog\scannerdialog.ui \
-    src\mainwindow.ui
+    src/CommentDlg/commentdlg.ui \
+    src/ScannerDialog/scannerdialog.ui \
+    src/mainwindow.ui
 
 TRANSLATIONS += \
-    src\SetereDevTest_ru_RU.ts \
-    src\SetereDevTest_en_US.ts
+    src/SetereDevTest_ru_RU.ts \
+    src/SetereDevTest_en_US.ts
 CONFIG += lrelease
 CONFIG += embed_translations
 
